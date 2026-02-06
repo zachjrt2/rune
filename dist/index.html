@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combo Combat Chronicles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-BAFgRq8v.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-C1Vkpz_e.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="game-title">⚔ Combo Combat Chronicles ⚔</h1>
+    
+    <div class="turn-indicator">
+      Turn <span id="turnCount">1</span> - <span id="turnPhase">Player's Turn</span>
+    </div>
+
+    <div class="battle-arena">
+      <!-- Player Panel -->
+      <div class="entity-panel">
+        <div class="panel-header">
+          🛡️ Hero
+        </div>
+        <div id="playerCard" class="entity-card">
+          <div class="entity-name" id="playerName">Hero</div>
+          <div class="hp-container">
+            <div class="hp-label">
+              <span>HP</span>
+              <span id="playerHpText">100 / 100</span>
+            </div>
+            <div class="hp-bar">
+              <div class="hp-fill" id="playerHpBar" style="width: 100%"></div>
+            </div>
+          </div>
+          <div class="hp-container shield-bar" id="playerShieldContainer" style="display: none;">
+            <div class="hp-label">
+              <span>Shield</span>
+              <span id="playerShieldText">0</span>
+            </div>
+            <div class="hp-bar">
+              <div class="shield-fill" id="playerShieldBar" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="status-list" id="playerStatuses"></div>
+        </div>
+      </div>
+
+      <!-- Enemy Panel -->
+      <div class="entity-panel">
+        <div class="panel-header">
+          ⚔️ Enemies
+        </div>
+        <div id="enemyContainer"></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="control-panel">
+      <div class="input-section">
+        <div class="section-title">Input Combo</div>
+        <div class="input-display" id="inputDisplay">
+          <span style="opacity: 0.5; font-style: italic;">Use arrow buttons below...</span>
+        </div>
+        
+        <div class="direction-pad">
+          <button class="dir-btn up" data-dir="UP">▲</button>
+          <button class="dir-btn left" data-dir="LEFT">◀</button>
+          <button class="dir-btn down" data-dir="DOWN">▼</button>
+          <button class="dir-btn right" data-dir="RIGHT">▶</button>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-secondary" id="clearBtn">Clear</button>
+          <button class="btn btn-secondary" id="replayBtn">Replay Last</button>
+          <button class="btn btn-primary" id="confirmBtn">Confirm Action</button>
+        </div>
+
+        <div class="combo-hint">
+          <strong>Combo Hints:</strong><br>
+          • <strong>Fireball:</strong> ↑ ↑ → (Fire damage to one enemy)<br>
+          • <strong>Ice Shard:</strong> ↓ ↓ ← (Ice damage + Freeze)<br>
+          • <strong>Slash:</strong> → ← (Physical damage)<br>
+          • <strong>Regenerate:</strong> ↓ ↓ ← (Heal over time)<br>
+          • <strong>Meteor Storm:</strong> ↑ ↑ → ↓ ↓ (AOE Fire damage)
+        </div>
+      </div>
+
+      <div class="section-title">Combat Log</div>
+      <div class="combat-log" id="combatLog"></div>
+    </div>
+  </div>
+
+  <div class="victory-banner" id="victoryBanner">
+    <div class="banner-title">VICTORY!</div>
+    <p style="font-size: 1.3rem; margin-bottom: 20px;">The hero emerges triumphant!</p>
+    <button class="btn btn-primary" onclick="location.reload()">New Battle</button>
+  </div>
+
+  <div class="defeat-banner" id="defeatBanner">
+    <div class="banner-title">DEFEAT</div>
+    <p style="font-size: 1.3rem; margin-bottom: 20px;">The hero has fallen...</p>
+    <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
+  </div>
+
+</body>
+</html>

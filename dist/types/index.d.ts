@@ -1,0 +1,105 @@
+export type DirectionInput = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+export type ElementType = 'FIRE' | 'ICE' | 'LIGHTNING' | 'POISON' | 'PHYSICAL';
+export type TargetingMode = 'SINGLE_ENEMY' | 'ALL_ENEMIES' | 'RANDOM_ENEMY' | 'SELF' | 'ALL_ALLIES';
+export type TurnPhase = 'PLAYER_INPUT' | 'PLAYER_EXECUTING' | 'ENEMY_TURN' | 'TURN_END' | 'COMBAT_END';
+export type StatusType = 'DAMAGE_OVER_TIME' | 'BUFF' | 'DEBUFF' | 'CONTROL';
+export type TriggerTiming = 'TURN_START' | 'TURN_END' | 'ON_HIT_DEALT' | 'ON_HIT_TAKEN' | 'PASSIVE';
+export type AIStrategy = 'RANDOM' | 'SEQUENTIAL' | 'PRIORITY_BASED' | 'CONDITIONAL';
+export interface ElementalAffinities {
+    [element: string]: number;
+}
+export interface StatusInstance {
+    statusId: string;
+    stacks: number;
+}
+export interface CombatEntity {
+    id: string;
+    name: string;
+    maxHp: number;
+    currentHp: number;
+    shield: number;
+    statuses: StatusInstance[];
+    elementalAffinities: ElementalAffinities;
+    isAlive: boolean;
+    team: 'player' | 'enemy';
+}
+export interface PlayerEntity extends CombatEntity {
+    team: 'player';
+}
+export interface EnemyEntity extends CombatEntity {
+    team: 'enemy';
+    aiPatternId: string;
+    actionPool: string[];
+}
+export interface CombatLogEntry {
+    timestamp: number;
+    message: string;
+    type: 'damage' | 'status' | 'death' | 'combo' | 'action';
+}
+export interface CombatState {
+    player: PlayerEntity;
+    enemies: EnemyEntity[];
+    turnPhase: TurnPhase;
+    turnCount: number;
+    inputBuffer: DirectionInput[];
+    lastSuccessfulCombo: DirectionInput[] | null;
+    combatLog: CombatLogEntry[];
+    isVictory: boolean;
+    isDefeat: boolean;
+}
+export interface StatusEffect {
+    statusId: string;
+    stacks: number;
+    target: 'self' | 'target';
+}
+export interface ComboDefinition {
+    id: string;
+    name: string;
+    sequence: DirectionInput[];
+    damage: number;
+    element: ElementType | null;
+    targeting: TargetingMode;
+    statusEffects: StatusEffect[];
+    hitCount: number;
+}
+export interface StatusEffectDefinition {
+    damagePerStack?: number;
+    healPerStack?: number;
+    shieldPerStack?: number;
+    damageMultiplier?: number;
+    outgoingDamageMultiplier?: number;
+    preventAction?: boolean;
+}
+export interface StatusDefinition {
+    id: string;
+    name: string;
+    type: StatusType;
+    triggerTiming: TriggerTiming;
+    effectPerStack: StatusEffectDefinition;
+    decayPerTurn: number;
+}
+export interface EnemyActionDefinition {
+    id: string;
+    name: string;
+    damage: number;
+    element: ElementType | null;
+    targeting: TargetingMode;
+    statusEffects: StatusEffect[];
+    hitCount: number;
+}
+export interface AIPattern {
+    id: string;
+    strategy: AIStrategy;
+}
+export interface DamageResult {
+    totalDamage: number;
+    breakdown: string[];
+    targetKilled: boolean;
+}
+export interface StatusTriggerResult {
+    entityId: string;
+    statusName: string;
+    effect: string;
+    killed: boolean;
+}
+//# sourceMappingURL=index.d.ts.map
