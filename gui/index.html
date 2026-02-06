@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combo Combat Chronicles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="main-layout">
+      <!-- Left Side: Inputs and Combo Library -->
+      <div class="left-panel">
+        <div class="turn-indicator">
+          Turn <span id="turnCount">1</span> - <span id="turnPhase">Player's Turn</span>
+        </div>
+        
+        <div class="input-section">
+          <div class="input-limit-info">
+            <span id="inputLimitText">Inputs: <span id="inputCount">0</span> / <span id="inputLimit">3</span></span>
+          </div>
+          <div class="input-display" id="inputDisplay">
+            <span style="opacity: 0.5; font-style: italic;">Use arrow buttons below...</span>
+          </div>
+          
+          <div class="direction-pad">
+            <button class="dir-btn up" data-dir="UP">▲</button>
+            <button class="dir-btn left" data-dir="LEFT">◀</button>
+            <button class="dir-btn down" data-dir="DOWN">▼</button>
+            <button class="dir-btn right" data-dir="RIGHT">▶</button>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-secondary" id="clearBtn">Clear</button>
+            <button class="btn btn-secondary" id="replayBtn">Replay</button>
+            <button class="btn btn-primary" id="confirmBtn">Confirm</button>
+          </div>
+        </div>
+
+        <div class="combo-library-section">
+          <div class="section-title">Discovered Combos</div>
+          <div class="combo-library" id="comboLibrary">
+            <div class="combo-library-empty">No combos discovered yet</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Battle Arena -->
+      <div class="center-panel">
+        <!-- Player (Left Side) -->
+        <div class="player-section">
+          <div id="playerCard" class="entity-card compact">
+            <div class="entity-image-container compact">
+              <img id="playerImage" class="entity-image" src="./assets/player.png" alt="Hero" onerror="this.style.display='none'">
+            </div>
+            <div class="entity-info">
+              <div class="entity-name" id="playerName">Hero</div>
+              <div class="level-info compact">
+                <span>Lv.<span id="playerLevel">1</span></span>
+                <span class="exp-text">XP: <span id="playerExp">0</span>/<span id="playerExpNext">50</span></span>
+              </div>
+              <div class="exp-bar-container compact">
+                <div class="exp-bar">
+                  <div class="exp-fill" id="playerExpBar" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="hp-container compact">
+                <div class="hp-label compact">
+                  <span>HP</span>
+                  <span id="playerHpText">100/100</span>
+                </div>
+                <div class="hp-bar compact">
+                  <div class="hp-fill" id="playerHpBar" style="width: 100%"></div>
+                </div>
+              </div>
+              <div class="hp-container shield-bar compact" id="playerShieldContainer" style="display: none;">
+                <div class="hp-label compact">
+                  <span>Shield</span>
+                  <span id="playerShieldText">0</span>
+                </div>
+                <div class="hp-bar compact">
+                  <div class="shield-fill" id="playerShieldBar" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="status-list compact" id="playerStatuses"></div>
+            </div>
+          </div>
+          
+          <!-- Player Status Effects and Elemental Affinities -->
+          <div class="player-info-panel">
+            <div class="info-section">
+              <div class="info-section-title">Status Effects</div>
+              <div class="status-effects-list" id="playerStatusEffectsList"></div>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">Elemental Affinities</div>
+              <div class="elemental-affinities-list" id="playerElementalAffinities"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enemies (Right Side) -->
+        <div class="enemies-section">
+          <div id="enemyContainer" class="enemy-container-compact"></div>
+        </div>
+      </div>
+
+      <!-- Right Side: Combat Log -->
+      <div class="right-panel">
+        <div class="section-title">Combat Log</div>
+        <div class="combat-log" id="combatLog"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="victory-banner" id="victoryBanner">
+    <div class="banner-title">VICTORY!</div>
+    <p style="font-size: 1.3rem; margin-bottom: 10px;">The hero emerges triumphant!</p>
+    <p id="streakInfo" style="font-size: 1rem; margin-bottom: 20px; color: var(--ancient-gold);"></p>
+    <div class="victory-choices">
+      <button class="btn btn-secondary" id="restBtn">Rest & Heal</button>
+      <button class="btn btn-primary" id="continueBtn">Continue Fighting</button>
+    </div>
+  </div>
+
+  <div class="defeat-banner" id="defeatBanner">
+    <div class="banner-title">DEFEAT</div>
+    <p style="font-size: 1.3rem; margin-bottom: 20px;">The hero has fallen...</p>
+    <button class="btn btn-primary" id="tryAgainBtn">Try Again</button>
+  </div>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
